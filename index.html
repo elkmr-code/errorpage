@@ -2,9 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>web maintenance</title>
+
+    <style>
+
+        @font-face {
+            font-family: 'LEGOThick';
+            src: url('LEGOThick.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'LEGOThick', Arial, sans-serif;
+        }
+
+        .title {
+            position: absolute;
+            top: 10px;    /* 距離上方 10px */
+            left: 30px;   /* 距離左方 10px */
+            width: 100px; /* 設定 Logo 寬度 */
+            height: auto; /* 高度自適應 */
+        }
+
+        .text-box {
+            position: absolute;
+            top: 10px; /* 與頂部距離 10px */
+            left: 50%; /* 讓文字水平置中 */
+            transform: translateX(-50%); /* 修正置中位置 */
+            text-align: center;
+            color: pink;
+            font-size: 40px;
+            -webkit-text-stroke: 2px black;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh; /* 讓 container 佔滿整個視窗 */
+            width: 100vw;  /* 確保寬度也填滿整個視窗 */
+            background-color: #ffd502; /* 設定背景顏色為黃色 */
+        }
+
+        .title {
+            width: 40%;
+            margin-top: 2em;
+        }
+
+        .title {
+            max-width: 60px;
+        }
+
+    </style>
+
 </head>
 <body>
+
+
+<div class="container">
+    <img class="title" src="imgs/lego-logo.png" alt="web Logo" >
+</div>
+<h1 class="text-box">Dear Legoers, the website is currently under maintenance due to high traffic. Please come back later. Thank you!</h1>
 
 </body>
 </html>
