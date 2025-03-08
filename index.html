@@ -13,14 +13,25 @@
 
         body {
             font-family: 'LEGOThick', Arial, sans-serif;
+            margin: 0;
+            background-color: #ffd502; /* 設定背景顏色 */
         }
 
         .title {
             position: absolute;
-            top: 10px;    /* 距離上方 10px */
-            left: 30px;   /* 距離左方 10px */
+            top: 10px;
+            left: 30px;
             width: 100px; /* 設定 Logo 寬度 */
             height: auto; /* 高度自適應 */
+        }
+
+        .title {
+            width: 40%;
+            margin-top: 2em;
+        }
+
+        .title {
+            max-width: 60px;
         }
 
         .text-box {
@@ -41,22 +52,32 @@
 
         .container {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh; /* 讓 container 佔滿整個視窗 */
-            width: 100vw;  /* 確保寬度也填滿整個視窗 */
-            background-color: #ffd502; /* 設定背景顏色為黃色 */
+            justify-content: space-around;  /* 平均分布圖片 */
+            align-items: flex-end;          /* 讓圖片靠底部 */
+            flex-wrap: wrap;              /* 允許圖片換行 */
+            height: 100vh;                  /* 佔滿視窗高度 */
+            width: 100vw;                   /* 佔滿視窗寬度 */
+            background-color: #ffd502;      /* 設定背景顏色 */
+            position: absolute;
+            bottom: 0;                      /* 讓容器貼到底部 */
+            left: 0;
         }
 
-        .title {
-            width: 40%;
-            margin-top: 2em;
+        .container img {
+            width: 150px;   /* 圖片大小 */
+            height: auto;
+            margin: 20px;   /* 讓圖片之間有間距 */
         }
 
-        .title {
-            max-width: 60px;
+        /* 調整 p 標籤的位置 */
+        .container p {
+            margin-top: 20px; /* 讓文字有適當的間距 */
+            font-size: 23px;
+            font-family: Arial, sans-serif; /* 設定字形 */
+            color: black;
+            text-align: center;
         }
+
 
     </style>
 
@@ -65,8 +86,18 @@
 
 
 <div class="container">
+
     <img class="title" src="imgs/lego-logo.png" alt="web Logo" >
+    <img src="imgs/cowboy.png" alt="Cowboy">
+    <img src="imgs/happy.png" alt="Happy">
+    <img class="chillguy" src="imgs/chillguy.png" alt="Chill Guy">
+    <img src="imgs/chilli.png" alt="Chilli">
+    <img src="imgs/ghost.png" alt="Ghost">
+    <img src="imgs/happyhogan.png" alt="Hogan">
+    <p>Just a chill lego waiting......</p>
+
 </div>
+
 <h1 class="text-box">Dear Legoers, the website is currently under maintenance due to high traffic. Please come back later. Thank you!</h1>
 
 </body>
