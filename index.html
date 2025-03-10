@@ -8,7 +8,7 @@
 
         @font-face {
             font-family: 'LEGOThick';
-            src: url('LEGOThick.ttf') format('truetype');
+            src: url('Legothick.woff') format('truetype');
         }
 
         body {
@@ -41,7 +41,7 @@
             transform: translateX(-50%); /* 修正置中位置 */
             text-align: center;
             color: pink;
-            font-size: 40px;
+            font-size: 50px;
             -webkit-text-stroke: 2px black;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
             background-color: rgba(255, 255, 255, 0.7);
@@ -54,9 +54,10 @@
             display: flex;
             justify-content: space-around;  /* 平均分布圖片 */
             align-items: flex-end;          /* 讓圖片靠底部 */
-            flex-wrap: wrap;              /* 允許圖片換行 */
+            flex-wrap: nowrap;              /* 不允許圖片換行 */
             height: 100vh;                  /* 佔滿視窗高度 */
             width: 100vw;                   /* 佔滿視窗寬度 */
+            min-width: 1300px;          /* 最小寬度 */
             background-color: #ffd502;      /* 設定背景顏色 */
             position: absolute;
             bottom: 0;                      /* 讓容器貼到底部 */
@@ -76,7 +77,12 @@
             font-family: Arial, sans-serif; /* 設定字形 */
             color: black;
             text-align: center;
+            position: absolute;
+            top: 425px;
+            left: 50%; /* 讓文字水平置中 */
+            transform: translateX(-50%); /* 修正置中位置 */
         }
+
 
 
     </style>
@@ -84,11 +90,9 @@
 </head>
 <body>
 
-
 <div class="container">
-
     <img class="title" src="imgs/lego-logo.png" alt="web Logo" >
-    <img src="imgs/cowboy.png" alt="Cowboy">
+    <img src="imgs/cowboy.png" alt="Cowboy" class="cowboy">
     <img src="imgs/happy.png" alt="Happy">
     <img class="chillguy" src="imgs/chillguy.png" alt="Chill Guy">
     <img src="imgs/chilli.png" alt="Chilli">
@@ -97,6 +101,7 @@
     <p>Just a chill lego waiting......</p>
 
 </div>
+
 
 <h1 class="text-box">Dear Legoers, the website is currently under maintenance due to high traffic. Please come back later. Thank you!</h1>
 
