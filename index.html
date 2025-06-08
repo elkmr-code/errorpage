@@ -5,103 +5,494 @@
     <title>web maintenance</title>
 
     <style>
-
         body {
             margin: 0;
-            background-color: #ffd502; /* 設定背景顏色 */
+            background-color: #ffd502;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .title {
+        .logo {
             position: absolute;
             top: 10px;
             left: 30px;
-            width: 100px; /* 設定 Logo 寬度 */
-            height: auto; /* 高度自適應 */
-        }
-
-        .title {
-            width: 40%;
-            margin-top: 2em;
-        }
-
-        .title {
             max-width: 60px;
+            height: auto;
+            z-index: 5;
         }
 
         .text-box {
-            position: absolute;
-            top: 10px; /* 與頂部距離 10px */
-            left: 50%; /* 讓文字水平置中 */
-            transform: translateX(-50%); /* 修正置中位置 */
-            text-align: center;
-            color: pink;
+            /* Less shiny gradient text that works better on yellow */
+            background: linear-gradient(90deg, #D84315, #7B1FA2, #1565C0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-size: 40px;
-            -webkit-text-stroke: 2px black;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 10px;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.7);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            background-color: rgba(255,255,255,0.7);
+            padding: 10px 30px;
             display: inline-block;
-            border-radius: 10px;
+            border-radius: 16px;
+            animation: slideDown 1s cubic-bezier(.68,-0.55,.27,1.55);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .container {
-            display: flex;
-            justify-content: space-around;  /* 平均分布圖片 */
-            align-items: flex-end;          /* 讓圖片靠底部 */
-            flex-wrap: nowrap;              /* 不允許圖片換行 */
-            height: 100vh;                  /* 佔滿視窗高度 */
-            width: 100vw;                   /* 佔滿視窗寬度 */
-            min-width: 1300px;          /* 最小寬度 */
-            background-color: #ffd502;      /* 設定背景顏色 */
-            position: absolute;
-            bottom: 0;                      /* 讓容器貼到底部 */
-            left: 0;
+        @keyframes slideDown {
+            0% { transform: translateY(-100px) translateX(-50%) scale(0.8); opacity: 0; }
+            100% { transform: translateY(0) translateX(-50%) scale(1); opacity: 1; }
         }
 
-        .container img {
-            width: 150px;   /* 圖片大小 */
-            height: auto;
-            margin: 20px;   /* 讓圖片之間有間距 */
-        }
-
-        /* 調整 p 標籤的位置 */
-        .container p {
-            margin-top: 20px; /* 讓文字有適當的間距 */
-            font-size: 23px;
-            font-family: Arial, sans-serif; /* 設定字形 */
-            color: black;
+        .middle-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #663c00; /* Lighter brown color that contrasts better with yellow */
             text-align: center;
             position: absolute;
-            top: 440px;
-            left: 50%; /* 讓文字水平置中 */
-            transform: translateX(-50%); /* 修正置中位置 */
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8); /* Light shadow for contrast */
+            animation: pulse 2s infinite;
         }
 
+        @keyframes pulse {
+            0% { transform: translateX(-50%) translateY(-50%) scale(1); }
+            50% { transform: translateX(-50%) translateY(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) translateY(-50%) scale(1); }
+        }
 
+        /* Image container for bottom positioning */
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
+        /* Image hover pop-up effect */
+        .image-container img {
+            width: 100px;
+            height: auto;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 0 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-container img:hover {
+            transform: scale(1.5);
+            z-index: 10;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1300px) {
+            .image-container {
+                flex-wrap: wrap;
+            }
+
+            .image-container img {
+                margin: 10px;
+            }
+
+            .text-box {
+                font-size: 30px;
+                padding: 8px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .text-box {
+                font-size: 24px;
+                padding: 6px 15px;
+            }
+
+            .middle-text {
+                font-size: 26px;
+            }
+
+            .image-container img {
+                width: 80px;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            position: relative;
+            animation: modalOpen 0.4s;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #e74c3c;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #e74c3c;
+        }
+
+        @keyframes modalOpen {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        /* Support box styles */
+        .support-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #1565C0;
+            border-radius: 50%;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 20;
+        }
+
+        .support-bubble:hover {
+            transform: scale(1.1);
+            background: #0D47A1;
+        }
+
+        .support-bubble::before {
+            content: '?';
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .support-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            z-index: 20;
+            display: none;
+            animation: fadeIn 0.3s;
+            border-top: 5px solid #D84315;
+            background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
+        }
+
+        .support-box h3 {
+            margin-top: 0;
+            color: #1565C0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .support-box textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            resize: none;
+            box-sizing: border-box;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .support-box textarea:focus {
+            border-color: #1565C0;
+            box-shadow: inset 0 1px 3px rgba(21,101,192,0.2);
+            outline: none;
+        }
+
+        .support-box button {
+            background: linear-gradient(to bottom, #D84315 0%, #BF360C 100%);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+        }
+
+        .support-box button:hover {
+            background: linear-gradient(to bottom, #BF360C 0%, #A52A12 100%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
+        }
+
+        .support-box button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .close-support {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+        }
+
+        .close-support:hover {
+            color: #e74c3c;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* Thank you modal */
+        #thankyouModal {
+            z-index: 150;
+        }
+
+        #thankyouModal .modal-content {
+            padding: 40px 30px;
+        }
+
+        #thankyouModal h2 {
+            color: #2E7D32;
+        }
     </style>
-
 </head>
 <body>
+    <!-- Logo in top left -->
+    <img class="logo" src="imgs/lego-logo.png" alt="Lego Logo">
 
-<div class="container">
-    <img class="title" src="imgs/lego-logo.png" alt="web Logo" >
-    <img src="imgs/cowboy.png" alt="Cowboy" class="cowboy">
-    <img src="imgs/happy.png" alt="Happy">
-    <img class="chillguy" src="imgs/chillguy.png" alt="Chill Guy">
-    <img src="imgs/chilli.png" alt="Chilli">
-    <img src="imgs/ghost.png" alt="Ghost">
-    <img src="imgs/happyhogan.png" alt="Hogan">
-    <p>Just a chill lego waiting......</p>
+    <!-- Message at top -->
+    <h1 class="text-box">Dear Legoers, the website is currently under maintenance due to high traffic. Please come back later. Thank you!</h1>
 
-</div>
+    <!-- Middle text with animated dots -->
+    <p class="middle-text">Chill lego waiting<span id="waiting-dots"></span></p>
 
+    <!-- Images at bottom -->
+    <div class="image-container">
+        <img src="imgs/cowboy.png" alt="Cowboy">
+        <img src="imgs/happy.png" alt="Happy">
+        <img src="imgs/chillguy.png" alt="Chill Guy">
+        <img src="imgs/chilli.png" alt="Chilli">
+        <img src="imgs/ghost.png" alt="Ghost">
+        <img src="imgs/happyhogan.png" alt="Hogan">
+    </div>
 
-<h1 class="text-box">Dear Legoers, the website is currently under maintenance due to high traffic. Please come back later. Thank you!</h1>
+    <!-- Modal popup -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Oops!</h2>
+            <p>The website is currently being inspected by our developers. They're working quickly to resolve any issues. Please check back soon!</p>
+        </div>
+    </div>
 
+    <!-- Thank You modal -->
+    <div class="modal" id="thankyouModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Thank You!</h2>
+            <p>Your support request has been received. Our team will get back to you shortly.</p>
+        </div>
+    </div>
+
+    <!-- Support request bubble -->
+    <div class="support-bubble" id="supportBubble"></div>
+
+    <!-- Support request box -->
+    <div class="support-box" id="supportBox">
+        <span class="close-support">&times;</span>
+        <h3>Need Support?</h3>
+        <textarea id="supportMessage" placeholder="Describe your issue..."></textarea>
+        <button id="sendSupport">Send Support Request</button>
+    </div>
+
+    <script>
+        // Animate the waiting dots
+        let dotCount = 0;
+        setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            document.getElementById('waiting-dots').textContent = '.'.repeat(dotCount);
+        }, 500);
+
+        // Make logo refresh page when clicked
+        document.querySelector('.logo').addEventListener('click', function() {
+            location.reload();
+        });
+        document.querySelector('.logo').style.cursor = 'pointer';
+
+        // Setup modal functionality for all figure images
+        const modal = document.getElementById('errorModal');
+        const figureImages = document.querySelectorAll('.image-container img');
+        const thankYouModal = document.getElementById('thankyouModal');
+        const supportButton = document.getElementById('sendSupport');
+        const supportMessage = document.getElementById('supportMessage');
+        const supportBubble = document.getElementById('supportBubble');
+        const supportBox = document.querySelector('.support-box');
+        const closeSupportButton = document.querySelector('.close-support');
+        let refreshTimer = null; // Variable to store the refresh timer
+
+        // Open modal when clicking any figure
+        figureImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Get all close buttons
+        const closeButtons = document.querySelectorAll('.close-modal');
+
+        // Close modals when clicking X
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Find the parent modal of this close button
+                const parentModal = this.closest('.modal');
+                if (parentModal) {
+                    parentModal.style.display = 'none';
+
+                    // Cancel the refresh timer if the user closes the thank you modal
+                    if (parentModal.id === 'thankyouModal' && refreshTimer) {
+                        clearTimeout(refreshTimer);
+                        refreshTimer = null;
+                    }
+                }
+            });
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+
+                // Cancel the refresh timer if the user closes the thank you modal
+                if (event.target.id === 'thankyouModal' && refreshTimer) {
+                    clearTimeout(refreshTimer);
+                    refreshTimer = null;
+                }
+            }
+        });
+
+        // Function to submit support request
+        function submitSupportRequest() {
+            const message = supportMessage.value.trim();
+            if (message) {
+                // Here you would typically send the message to the server
+                console.log('Support message sent:', message);
+
+                // Show thank you modal
+                thankYouModal.style.display = 'flex';
+
+                // Clear the message box
+                supportMessage.value = '';
+
+                // Hide support box, show bubble
+                supportBox.style.display = 'none';
+                supportBubble.style.display = 'flex';
+
+                // Set timer to refresh page after 5 seconds only if modal stays open
+                refreshTimer = setTimeout(function() {
+                    location.reload();
+                }, 5000);
+            } else {
+                alert('Please enter a message before sending.');
+            }
+        }
+
+        // Submit support request on button click
+        supportButton.addEventListener('click', submitSupportRequest);
+
+        // Submit support request on Enter key (but allow multiline with Shift+Enter)
+        supportMessage.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault(); // Prevent default behavior (newline)
+                submitSupportRequest();
+            }
+        });
+
+        // Support bubble functionality
+        supportBubble.addEventListener('click', function() {
+            // Toggle support box visibility
+            supportBox.style.display = 'block';
+            supportBubble.style.display = 'none'; // Hide bubble when box is open
+            // Focus on textarea when opening support box
+            setTimeout(() => supportMessage.focus(), 100);
+        });
+
+        // Close support box when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!supportBox.contains(event.target) && !supportBubble.contains(event.target)) {
+                supportBox.style.display = 'none';
+                supportBubble.style.display = 'flex';
+            }
+        });
+
+        // Close support box functionality
+        closeSupportButton.addEventListener('click', function() {
+            supportBox.style.display = 'none';
+            supportBubble.style.display = 'flex'; // Show bubble when support box is closed
+        });
+    </script>
 </body>
 </html>
