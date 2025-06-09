@@ -57,7 +57,7 @@
             color: #663c00; /* Lighter brown color that contrasts better with yellow */
             text-align: center;
             position: absolute;
-            top: 50%;
+            top: 35%; /* Moved higher in the page, between top content and button */
             left: 50%;
             transform: translateX(-50%) translateY(-50%);
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8); /* Light shadow for contrast */
@@ -68,6 +68,200 @@
             0% { transform: translateX(-50%) translateY(-50%) scale(1); }
             50% { transform: translateX(-50%) translateY(-50%) scale(1.05); }
             100% { transform: translateX(-50%) translateY(-50%) scale(1); }
+        }
+
+        /* Not Chill button styles */
+        .not-chill-button {
+            background: linear-gradient(to bottom, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: block;
+            position: absolute;
+            top: calc(35% + 50px); /* Increased from 25px to 50px to create more gap */
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+            z-index: 15; /* Added to ensure it appears above other elements */
+        }
+
+        .not-chill-button:hover {
+            background: linear-gradient(to bottom, #c0392b 0%, #a82315 100%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        .not-chill-button:active {
+            transform: translateX(-50%) translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Game animation styles */
+        .game-active .image-container img {
+            animation: rise-and-flip 2s ease-in, drop 0.5s ease-in 2s forwards; /* Rise duration changed from 3s to 2s */
+            position: relative;
+            transform-origin: center;
+            z-index: 20;
+        }
+
+        /* Create a rising animation with Y-axis flipping - made smoother and faster */
+        @keyframes rise-and-flip {
+            0% {
+                transform: translateY(0) rotateY(0deg);
+            }
+            25% {
+                transform: translateY(-125px) rotateY(90deg);
+            }
+            50% {
+                transform: translateY(-250px) rotateY(180deg);
+            }
+            75% {
+                transform: translateY(-375px) rotateY(270deg);
+            }
+            100% {
+                transform: translateY(-500px) rotateY(360deg);
+            }
+            /* Use hardware acceleration for smoother animation */
+            will-change: transform;
+        }
+
+        /* Create a quick drop animation */
+        @keyframes drop {
+            0% {
+                transform: translateY(-500px) rotateY(360deg);
+            }
+            100% {
+                transform: translateY(0) rotateY(360deg);
+            }
+        }
+
+        /* Saturn-like ring effects with X-axis rotation */
+        .spinning-trail-container {
+            position: absolute;
+            width: 180px; /* Increased size for a wider ring system */
+            height: 180px; /* Increased size for a wider ring system */
+            pointer-events: none;
+            z-index: 19; /* Ensure rings are behind the image but in front of other content */
+            animation: spinContainerX 3s linear infinite; /* Duration changed from 5s to 3s */
+            transform-style: preserve-3d;
+            perspective: 1000px; /* Enhanced perspective */
+            transform: rotateX(70deg); /* Initial tilt like Saturn\'s rings */
+            will-change: transform; /* Added for smoother animation */
+        }
+
+        @keyframes spinContainerX {
+            0% { transform: rotateX(70deg) rotateZ(0deg); }
+            100% { transform: rotateX(70deg) rotateZ(360deg); }
+        }
+
+        .spinning-trail {
+            position: absolute;
+            pointer-events: none;
+            display: none; /* Initially hidden, shown by JS */
+            transform-style: preserve-3d;
+            border-radius: 50%; /* Make them elliptical/circular */
+            box-sizing: border-box;
+            will-change: transform; /* Apply to all for consistency */
+        }
+
+        /* Ring 1: Solid, slightly thicker */
+        .spinning-trail-1 {
+            width: 100%; height: 100%;
+            border: 3px solid rgba(0,0,0,0.5);
+            animation: orbitRing1 1.8s linear infinite; /* Duration 3s -> 1.8s */
+        }
+
+        /* Ring 2: Dashed, smaller, different speed/direction */
+        .spinning-trail-2 {
+            width: 85%; height: 85%;
+            top: 7.5%; left: 7.5%; /* Center it */
+            border: 2px dashed rgba(0,0,0,0.4);
+            animation: orbitRing2 2.4s linear infinite reverse; /* Duration 4s -> 2.4s */
+        }
+
+        /* Ring 3: Dotted, larger */
+        .spinning-trail-3 {
+            width: 115%; height: 115%;
+            top: -7.5%; left: -7.5%; /* Center it */
+            border: 2px dotted rgba(0,0,0,0.6);
+            animation: orbitRing3 3.3s linear infinite; /* Duration 5.5s -> 3.3s */
+        }
+
+        /* Ring 4: Partial arc using border colors */
+        .spinning-trail-4 {
+            width: 90%; height: 90%;
+            top: 5%; left: 5%;
+            border: 3px solid transparent;
+            border-top-color: rgba(0,0,0,0.7);
+            border-left-color: rgba(0,0,0,0.7); /* Makes a 1/2 arc */
+            animation: orbitRing4 2.1s linear infinite; /* Duration 3.5s -> 2.1s */
+        }
+
+        /* Ring 5: Another partial arc, different style/position */
+        .spinning-trail-5 {
+            width: 110%; height: 110%;
+            top: -5%; left: -5%;
+            border: 2px solid transparent;
+            border-bottom-color: rgba(0,0,0,0.5);
+            border-right-color: rgba(0,0,0,0.5);
+            animation: orbitRing5 2.7s linear infinite reverse; /* Duration 4.5s -> 2.7s */
+        }
+
+        /* Ring 6: Thinner solid ring, different depth */
+        .spinning-trail-6 {
+            width: 95%; height: 95%;
+            top: 2.5%; left: 2.5%;
+            border: 1px solid rgba(0,0,0,0.3);
+            animation: orbitRing6 3.6s linear infinite; /* Duration 6s -> 3.6s */
+        }
+
+        /* Keyframes for individual ring segment orbits, including their static transforms */
+        @keyframes orbitRing1 {
+            0% { transform: translateZ(8px) rotateZ(0deg); }
+            100% { transform: translateZ(8px) rotateZ(360deg); }
+        }
+        @keyframes orbitRing2 {
+            0% { transform: translateZ(-5px) rotateZ(0deg); }
+            100% { transform: translateZ(-5px) rotateZ(360deg); }
+        }
+        @keyframes orbitRing3 {
+            0% { transform: translateZ(0px) rotateZ(0deg); }
+            100% { transform: translateZ(0px) rotateZ(360deg); }
+        }
+        @keyframes orbitRing4 { /* This one had an initial rotateZ for tilt, let's keep that */
+            0% { transform: translateZ(12px) rotateZ(45deg); }
+            100% { transform: translateZ(12px) rotateZ(405deg); } /* 45 + 360 */
+        }
+        @keyframes orbitRing5 { /* This one also had an initial rotateZ */
+            0% { transform: translateZ(-10px) rotateZ(-30deg); }
+            100% { transform: translateZ(-10px) rotateZ(330deg); } /* -30 + 360 */
+        }
+        @keyframes orbitRing6 {
+            0% { transform: translateZ(3px) rotateZ(0deg); }
+            100% { transform: translateZ(3px) rotateZ(360deg); }
+        }
+
+        /* Dust effect styles - enlarged and more obvious */
+        .dust-container {
+            position: absolute;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        .dust-particle {
+            position: absolute;
+            width: 15px; /* Larger particles */
+            height: 15px; /* Larger particles */
+            background-color: rgba(255,255,255,0.9); /* More opaque */
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 5px rgba(255,255,255,0.7); /* Added glow effect */
         }
 
         /* Image container for bottom positioning */
@@ -94,7 +288,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        .image-container img:hover {
+        .image-container img:hover:not(.game-active .image-container img) {
             transform: scale(1.5);
             z-index: 10;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -330,6 +524,20 @@
     <!-- Middle text with animated dots -->
     <p class="middle-text">Chill lego waiting<span id="waiting-dots"></span></p>
 
+    <!-- Not Chill button -->
+    <button class="not-chill-button" id="notChillButton">Not Chill?</button>
+
+    <!-- Spinning trail element -->
+    <div class="spinning-trail-container" id="spinningTrailTemplate" style="display: none;">
+        <div class="spinning-trail spinning-trail-1"></div>
+        <div class="spinning-trail spinning-trail-2"></div>
+        <div class="spinning-trail spinning-trail-3"></div>
+        <div class="spinning-trail spinning-trail-4"></div>
+    </div>
+
+    <!-- Dust container for the animation effect -->
+    <div class="dust-container" id="dustContainer"></div>
+
     <!-- Images at bottom -->
     <div class="image-container">
         <img src="imgs/cowboy.png" alt="Cowboy">
@@ -493,6 +701,171 @@
             supportBox.style.display = 'none';
             supportBubble.style.display = 'flex'; // Show bubble when support box is closed
         });
+
+        // ------ Interactive Game Animation Code ------
+        const notChillButton = document.getElementById('notChillButton');
+        const imageContainer = document.querySelector('.image-container');
+        const spinningTrail = document.getElementById('spinningTrail');
+        const dustContainer = document.getElementById('dustContainer');
+        let gameActive = false;
+
+        // Function to create dust particles animation - more reliable version
+        function createDustEffect(x, y) {
+            // Create a larger number of dust particles for a more dramatic effect
+            for (let i = 0; i < 40; i++) { // Increased particle count for more reliability
+                // Create the dust particle
+                const dust = document.createElement('div');
+                dust.classList.add('dust-particle');
+
+                // Random size for each particle between 10-20px
+                const size = 10 + Math.random() * 10;
+                dust.style.width = size + 'px';
+                dust.style.height = size + 'px';
+
+                // Position the dust at the figure's landing spot with more spread
+                dust.style.left = (x - 20 + Math.random() * 40) + 'px';
+                dust.style.top = (y - 20 + Math.random() * 40) + 'px';
+
+                // Force layout calculation to ensure accurate positioning
+                dustContainer.appendChild(dust);
+                void dust.offsetWidth;
+
+                // Apply random movement and fade-out with greater distance
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 10 + Math.random() * 30;
+                const duration = 500 + Math.random() * 1000;
+
+                dust.style.opacity = 0.9;
+                dust.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                dust.style.transition = `all ${duration}ms ease-out`;
+
+                // Start animation immediately
+                requestAnimationFrame(() => {
+                    dust.style.opacity = 0;
+                });
+
+                // Remove dust after animation is complete
+                setTimeout(() => {
+                    if (dust.parentNode) {
+                        dust.remove();
+                    }
+                }, duration + 200); // Extended removal time
+            }
+        }
+
+        // Function to handle the game animation
+        function startGameAnimation() {
+            if (gameActive) return; // Prevent multiple activations
+            gameActive = true;
+
+            // Clear any existing dust particles first
+            dustContainer.innerHTML = '';
+
+            // Add game-active class to body to trigger animations
+            document.body.classList.add('game-active');
+
+            const spinningTrailTemplate = document.getElementById('spinningTrailTemplate');
+            const trailContainers = [];
+
+            // Store original positions for reference
+            const figurePositions = [];
+            figureImages.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                figurePositions.push({
+                    img: img,
+                    left: rect.left,
+                    top: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                });
+
+                // Update z-index for proper layering during animation
+                img.style.zIndex = '20';
+
+                // Create spinning trail container for each figure
+                const trailContainer = spinningTrailTemplate.cloneNode(true);
+                trailContainer.style.display = 'block';
+                trailContainer.style.width = (rect.width + 30) + 'px';
+                trailContainer.style.height = (rect.height + 30) + 'px';
+                trailContainer.style.left = (rect.left - 15) + 'px';
+                trailContainer.style.top = (rect.top - 15) + 'px';
+                document.body.appendChild(trailContainer);
+                trailContainers.push(trailContainer);
+
+                // Make all spinning trail lines visible
+                const trails = trailContainer.querySelectorAll('.spinning-trail');
+                trails.forEach(trail => {
+                    trail.style.display = 'block';
+                });
+
+                // Make the trail container follow the figure during animation
+                const updateTrailPosition = () => {
+                    // If gameActive is false OR the trailContainer is no longer in the DOM, stop.
+                    if (!gameActive || !trailContainer.parentNode) {
+                        return;
+                    }
+
+                    const updatedRect = img.getBoundingClientRect();
+                    trailContainer.style.left = (updatedRect.left - 15) + 'px';
+                    trailContainer.style.top = (updatedRect.top - 15) + 'px';
+
+                    requestAnimationFrame(updateTrailPosition);
+                };
+                requestAnimationFrame(updateTrailPosition);
+            });
+
+            // Total animation time for images to rise and drop: 2s (rise) + 0.5s (drop) = 2.5s (2500ms)
+            const imagesLandTime = 2500;
+
+            // After the images land (rise and drop animation completes)
+            setTimeout(() => {
+                // 1. Remove all trail containers precisely when images land
+                trailContainers.forEach(container => {
+                    if (container.parentNode) { // Check if still in DOM before removing
+                        container.remove();
+                    }
+                });
+
+                // 2. Create dust effect for each figure precisely when images land
+                // Force a reflow before starting dust effects to ensure accuracy
+                void dustContainer.offsetWidth;
+                dustContainer.innerHTML = ''; // Clear any previous dust just in case
+
+                for (let i = 0; i < figurePositions.length; i++) {
+                    const pos = figurePositions[i];
+                    // Create dust for all figures at the same time (no artificial stagger)
+                    createDustEffect(pos.left + pos.width / 2, pos.top + pos.height / 2);
+                }
+
+                // 3. Play landing sound effect (optional)
+                const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU5vT18=');
+                audio.volume = 0.3;
+                try {
+                    audio.play().catch(e => console.log('Audio play error:', e));
+                } catch (e) {
+                    console.log('Audio error:', e);
+                }
+
+                // 4. Reset game state after dust effect has had time to play out
+                // Dust particles last up to ~1.2s. Give it 1.5s.
+                setTimeout(() => {
+                    document.body.classList.remove('game-active');
+                    figureImages.forEach(imgNode => { // Renamed img to imgNode to avoid conflict
+                        imgNode.style.zIndex = '';
+                    });
+                    gameActive = false;
+
+                    // Final cleanup of dust container after a bit more time
+                    setTimeout(() => {
+                        dustContainer.innerHTML = '';
+                    }, 500);
+                }, 1500); // 1.5s after landing for dust to mostly finish
+
+            }, imagesLandTime);
+        }
+
+        // Attach event listener to Not Chill button
+        notChillButton.addEventListener('click', startGameAnimation);
     </script>
 </body>
 </html>
